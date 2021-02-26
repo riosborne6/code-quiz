@@ -13,10 +13,14 @@ function timer() {
     ticker.textContent = timeLeft
 
 }
+
+let myInterval; // declare as global
+
 function startquiz() {
-    setInterval(function () { timer() }, 1000);
+    // assign myInterval and start time
+    return myInterval = setInterval(function () { timer() }, 1000);
 }
 
-if (timeLeft === 0) {
-    clearInterval
+if (timeLeft == 0) {
+    clearInterval(myInterval)
 }
