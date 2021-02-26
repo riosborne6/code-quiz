@@ -11,7 +11,9 @@ startButton.addEventListener("click", function () {
 function timer() {
     timeLeft--
     ticker.textContent = timeLeft
-
+    if (timeLeft == 0) {
+        clearInterval(myInterval)
+    }
 }
 
 let myInterval; // declare as global
@@ -21,6 +23,4 @@ function startquiz() {
     return myInterval = setInterval(function () { timer() }, 1000);
 }
 
-if (timeLeft == 0) {
-    clearInterval(myInterval)
-}
+function questions
