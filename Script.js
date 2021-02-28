@@ -30,6 +30,23 @@ buttonElement1.addEventListener("click", function (event) {
     timeLeft = timeLeft - 5;
     console.log(timeLeft);
   }
+  buttonElement2.addEventListener("click", function (event) {
+    console.log(event.target.innerText);
+    if (event.target.innerText === questions[currentquestions].answer) {
+      score++;
+      console.log(currentquestions);
+      currentquestions++;
+    } else {
+      timeLeft = timeLeft - 5;
+      console.log(timeLeft);
+    }
+    buttonElement3.addEventListener("click", function (event) {
+        console.log(event.target.innerText);
+        if (event.target.innerText === questions[currentquestions].answer) {
+          score++;
+          console.log(currentquestions);
+          currentquestions++;
+        }
 });
 
 startButton.addEventListener("click", function () {
