@@ -3,6 +3,7 @@ var ticker = document.getElementById("timer");
 var timeLeft = 20;
 var timerElement;
 var score = 0;
+var quizEl = document.getElementById("quiz");
 var questions = [
   {
     question: "What is a boolean?",
@@ -23,35 +24,41 @@ var buttonElement3 = document.getElementById("answers3");
 buttonElement1.addEventListener("click", function (event) {
   console.log(event.target.innerText);
   submitAnswer(event.target.innerText);
-  //if (event.target.innerText === questions[currentquestions].answer) {
-  //     score++;
-  //     console.log(currentquestions);
-  //     currentquestions++;
-  //   } else {
-  //     timeLeft = timeLeft - 5;
-  //     console.log(timeLeft);
-  //   }
+  // if (event.target.innerText === questions[currentquestions].answer) {
+  //   score++;
+  //   console.log(currentquestions);
+  //   currentquestions++;
+  // } else {
+  //   timeLeft = timeLeft - 5;
+  //   console.log(timeLeft);
+  //   currentquestions++;
+  // }
 });
 buttonElement2.addEventListener("click", function (event) {
   submitAnswer(event.target.innerText);
-  //   console.log(event.target.innerText);
-  //   if (event.target.innerText === questions[currentquestions].answer) {
-  //     score++;
-  //     console.log(currentquestions);
-  //     currentquestions++;
-  //   } else {
-  //     timeLeft = timeLeft - 5;
-  //     console.log(timeLeft);
-  //   }
+  console.log(event.target.innerText);
+  // if (event.target.innerText === questions[currentquestions].answer) {
+  //   score++;
+  //   console.log(currentquestions);
+  //   currentquestions++;
+  // } else {
+  //   timeLeft = timeLeft - 5;
+  //   console.log(timeLeft);
+  //   currentquestions++;
+  // }
 });
 buttonElement3.addEventListener("click", function (event) {
   submitAnswer(event.target.innerText);
-  //   console.log(event.target.innerText);
-  //   if (event.target.innerText === questions[currentquestions].answer) {
-  //     score++;
-  //     console.log(currentquestions);
-  //     currentquestions++;
-  //   }
+  console.log(event.target.innerText);
+  // if (event.target.innerText === questions[currentquestions].answer) {
+  //   score++;
+  //   console.log(currentquestions);
+  //   currentquestions++;
+  // } else {
+  //   timeLeft = timeLeft - 5;
+  //   console.log(timeLeft);
+  //   currentquestions++;
+  // }
 });
 
 startButton.addEventListener("click", function () {
@@ -91,14 +98,31 @@ function submitAnswer(answer) {
     timeLeft -= 5;
   }
   currentquestions++;
-  if (currentquestions >= questions.length - 1) {
-    //go to display high score
+  score++;
+  console.log(currentquestions, questions.length - 1);
+  if (currentquestions > questions.length - 1) {
+    time = 0;
+    clearQuestions();
+    finishQuiz();
     return;
   }
-  displayQuestion();
   console.log(answer);
+  displayQuestion();
 }
-// put the question on the page
-// on click answer
-// grade
-// reassign current question to the next one
+function clearQuestions() {
+  quizEl.removeChild(questionElement);
+  quizEl.removeChild(buttonElement1);
+  quizEl.removeChild(buttonElement2);
+  quizEl.removeChild(buttonElement3);
+}
+function finishQuiz() {
+  var h1El = document.createElement("h1");
+  h1El.textContent = score;
+  //input element. Give it an ID. Create a submit button. Give submit button and onclick event - set attribute.
+  //submit button should should set local storage
+  quizEl.appendChild(h1El);
+}
+function showHighScores() {
+  // get local storage.
+  // set the text content from the get local storage (html elements).
+}
