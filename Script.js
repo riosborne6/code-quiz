@@ -4,6 +4,7 @@ var timeLeft = 20;
 var timerElement;
 var score = 0;
 var quizEl = document.getElementById("quiz");
+var submitScore = document.createElement("initials");
 var questions = [
   {
     question: "What is a boolean?",
@@ -118,11 +119,16 @@ function clearQuestions() {
 function finishQuiz() {
   var h1El = document.createElement("h1");
   h1El.textContent = score;
+  submitScore.setAttribute("initials");
+  localStorage.setItem("initials");
   //input element. Give it an ID. Create a submit button. Give submit button and onclick event - set attribute.
   //submit button should should set local storage
   quizEl.appendChild(h1El);
 }
 function showHighScores() {
+  document.getElementById("initials").innerHTML = localStorage.getItem(
+    "initials"
+  );
   // get local storage.
   // set the text content from the get local storage (html elements).
 }
