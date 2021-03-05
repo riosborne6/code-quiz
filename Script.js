@@ -115,7 +115,9 @@ function submitAnswer(answer) {
   if (answer !== questions[currentquestions].answer) {
     timeLeft -= 5;
   }
-  if (currentquestions < 1 == currentquestions++);
+  if (currentquestions < questions.length) {
+    currentquestions++;
+  }
   score++;
   console.log(currentquestions, questions.length - 1);
   if (currentquestions > questions.length - 1) {
