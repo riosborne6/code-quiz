@@ -17,11 +17,9 @@ var questions = [
   },
 ];
 var currentquestions = 0;
-
 startButton.addEventListener("click", function () {
   startquiz();
 });
-
 function timer() {
   timeLeft--;
   ticker.textContent = timeLeft;
@@ -29,13 +27,11 @@ function timer() {
     clearInterval(myInterval);
   }
 }
-
 let myInterval; // declare as global
 var questionElement;
 var buttonElement1;
 var buttonElement2;
 var buttonElement3;
-
 function startquiz() {
   var questionEl = document.createElement("h3");
   questionEl.setAttribute("id", "questions");
@@ -58,12 +54,11 @@ function startquiz() {
   }, 1000));
 }
 function displayQuestion() {
-  var questionElement = document.getElementById("questions");
-  var buttonElement1 = document.getElementById("answers1");
-  var buttonElement2 = document.getElementById("answers2");
-  var buttonElement3 = document.getElementById("answers3");
+  questionElement = document.getElementById("questions");
+  buttonElement1 = document.getElementById("answers1");
+  buttonElement2 = document.getElementById("answers2");
+  buttonElement3 = document.getElementById("answers3");
   console.log(questions);
-  questionElement, buttonElement1, buttonElement2, buttonElement3;
   questionElement.textContent = questions[currentquestions].question;
   buttonElement1.textContent = questions[currentquestions].choices[0];
   buttonElement2.textContent = questions[currentquestions].choices[1];
@@ -108,26 +103,21 @@ function displayQuestion() {
     // }
   });
 }
-
 function submitAnswer(answer) {
   console.log(answer);
   console.log(currentquestions);
   if (answer !== questions[currentquestions].answer) {
     timeLeft -= 5;
   }
-  if (currentquestions < questions.length) {
+  if (currentquestions <= questions.length - 1) {
     currentquestions++;
   }
   score++;
-  console.log(currentquestions, questions.length - 1);
+  console.log(currentquestions, questions.length);
   if (currentquestions > questions.length - 1) {
+    console.log("got here");
     time = 0;
-    clearQuestions(
-      questionElement,
-      buttonElement1,
-      buttonElement2,
-      buttonElement3
-    );
+    clearQuestions();
     finishQuiz();
     return;
   }
