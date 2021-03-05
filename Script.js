@@ -31,6 +31,10 @@ function timer() {
 }
 
 let myInterval; // declare as global
+var questionElement;
+var buttonElement1;
+var buttonElement2;
+var buttonElement3;
 
 function startquiz() {
   var questionEl = document.createElement("h3");
@@ -59,6 +63,7 @@ function displayQuestion() {
   var buttonElement2 = document.getElementById("answers2");
   var buttonElement3 = document.getElementById("answers3");
   console.log(questions);
+  questionElement, buttonElement1, buttonElement2, buttonElement3;
   questionElement.textContent = questions[currentquestions].question;
   buttonElement1.textContent = questions[currentquestions].choices[0];
   buttonElement2.textContent = questions[currentquestions].choices[1];
@@ -110,24 +115,24 @@ function submitAnswer(answer) {
   if (answer !== questions[currentquestions].answer) {
     timeLeft -= 5;
   }
-  currentquestions++;
+  if (currentquestions < 1 == currentquestions++);
   score++;
   console.log(currentquestions, questions.length - 1);
   if (currentquestions > questions.length - 1) {
     time = 0;
-    clearQuestions();
+    clearQuestions(
+      questionElement,
+      buttonElement1,
+      buttonElement2,
+      buttonElement3
+    );
     finishQuiz();
     return;
   }
   console.log(answer);
   displayQuestion();
 }
-function clearQuestions(
-  questionElement,
-  buttonElement1,
-  buttonElement2,
-  buttonElement3
-) {
+function clearQuestions() {
   quizEl.removeChild(questionElement);
   quizEl.removeChild(buttonElement1);
   quizEl.removeChild(buttonElement2);
