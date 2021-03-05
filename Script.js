@@ -115,12 +115,7 @@ function submitAnswer(answer) {
   console.log(currentquestions, questions.length - 1);
   if (currentquestions > questions.length - 1) {
     time = 0;
-    clearQuestions(
-      questionElement,
-      buttonElement1,
-      buttonElement2,
-      buttonElement3
-    );
+    clearQuestions();
     finishQuiz();
     return;
   }
