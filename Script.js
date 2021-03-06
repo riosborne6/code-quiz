@@ -1,7 +1,8 @@
 var startButton = document.getElementById("startbutton");
 var ticker = document.getElementById("timer");
-var timeLeft = 20;
+var timeLeft = 60;
 var timerElement;
+var highScores = [];
 var score = 0;
 var quizEl = document.getElementById("quiz");
 var questions = [
@@ -23,6 +24,11 @@ startButton.addEventListener("click", function () {
 function timer() {
   timeLeft--;
   ticker.textContent = timeLeft;
+  if (currentquestions === questions.length) {
+    clearInterval(myInterval);
+    ticker.textContent = 0;
+    timeLeft = 0;
+  }
   if (timeLeft == 0) {
     clearInterval(myInterval);
   }
@@ -32,7 +38,12 @@ var questionElement;
 var buttonElement1;
 var buttonElement2;
 var buttonElement3;
+
+//start quiz
+
 function startquiz() {
+  timeLeft = 60;
+  ticker.textContent = timeLeft;
   var questionEl = document.createElement("h3");
   questionEl.setAttribute("id", "questions");
   var buttonEl1 = document.createElement("button");
@@ -59,10 +70,13 @@ function displayQuestion() {
   buttonElement2 = document.getElementById("answers2");
   buttonElement3 = document.getElementById("answers3");
   console.log(questions);
-  questionElement.textContent = questions[currentquestions].question;
-  buttonElement1.textContent = questions[currentquestions].choices[0];
-  buttonElement2.textContent = questions[currentquestions].choices[1];
-  buttonElement3.textContent = questions[currentquestions].choices[2];
+  if (currentquestions < questions.length) {
+    // adds condition here to prevent rendering non-existant questions
+    questionElement.textContent = questions[currentquestions].question;
+    buttonElement1.textContent = questions[currentquestions].choices[0];
+    buttonElement2.textContent = questions[currentquestions].choices[1];
+    buttonElement3.textContent = questions[currentquestions].choices[2];
+  }
   buttonElement1.addEventListener("click", function (event) {
     console.log(event.target.innerText);
     submitAnswer(event.target.innerText);
@@ -106,23 +120,28 @@ function displayQuestion() {
 function submitAnswer(answer) {
   console.log(answer);
   console.log(currentquestions);
-  if (answer !== questions[currentquestions].answer) {
-    timeLeft -= 5;
+  if (currentquestions < questions.length) {
+    // adds condition here to prevent rendering non-existant answer
+    if (answer !== questions[currentquestions].answer) {
+      timeLeft -= 5;
+      currentquestions++;
+    } else if (answer === questions[currentquestions].answer) {
+      // moves score and currentquestions increase to only if answer is correct
+      currentquestions++;
+      score++;
+    }
+    console.log(currentquestions, questions.length);
+    if (currentquestions === questions.length) {
+      console.log("got here");
+      time = 0;
+      clearQuestions();
+      finishQuiz();
+      // moves finishquiz function to inside here to end when currentquestion = questions.length
+      return;
+    }
+    console.log(answer);
+    displayQuestion();
   }
-  if (currentquestions <= questions.length - 1) {
-    currentquestions++;
-  }
-  score++;
-  console.log(currentquestions, questions.length);
-  if (currentquestions > questions.length - 1) {
-    console.log("got here");
-    time = 0;
-    clearQuestions();
-    finishQuiz();
-    return;
-  }
-  console.log(answer);
-  displayQuestion();
 }
 function clearQuestions() {
   quizEl.removeChild(questionElement);
@@ -151,12 +170,13 @@ function finishQuiz() {
       score: score,
       initials: initialClick,
     };
-    localStorage.setItem("quizScore", JSON.stringify(scoreObject));
+    highScores.push(scoreObject);
+    localStorage.setItem("quizScore", JSON.stringify(highScores));
+    score = 0;
     showHighScores(h1El, inputEl, buttonEl);
   });
 }
 function showHighScores(h1El, inputEl, buttonEl) {
-  var score = JSON.parse(localStorage.getItem("quizScore"));
   quizEl.removeChild(h1El);
   quizEl.removeChild(inputEl);
   quizEl.removeChild(buttonEl);
@@ -164,3 +184,16 @@ function showHighScores(h1El, inputEl, buttonEl) {
   console.log(score);
   // set the text content from the get local storage (html elements).
 }
+
+function viewHighscore() {
+  var score = JSON.parse(localStorage.getItem("quizScore"));
+  var orderedList = document.createElement("ol");
+  for (var i = 0; i < score.length; i++) {
+    var listItem = document.createElement("li");
+    listItem.textContent = `score[i].name : score[i].score`;
+    orderedList.appendChild(listItem);
+  }
+  viewHighscore.appendChild(orderedList);
+  console.log(score);
+}
+viewHighscore();
