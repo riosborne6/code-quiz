@@ -4,6 +4,7 @@ var timeLeft = 60;
 var timerElement;
 var highScores = [];
 var score = 0;
+var scoreBoard = document.getElementById("high-score");
 var quizEl = document.getElementById("quiz");
 var questions = [
   {
@@ -188,12 +189,14 @@ function showHighScores(h1El, inputEl, buttonEl) {
 function viewHighscore() {
   var score = JSON.parse(localStorage.getItem("quizScore"));
   var orderedList = document.createElement("ol");
+  //displayQuestion.setAttribute();
   for (var i = 0; i < score.length; i++) {
     var listItem = document.createElement("li");
-    listItem.textContent = `score[i].name : score[i].score`;
+    console.log(score[i].name);
+    listItem.textContent = `${score[i].initials} : ${score[i].score}`;
     orderedList.appendChild(listItem);
   }
-  viewHighscore.appendChild(orderedList);
+  scoreBoard.appendChild(orderedList);
   console.log(score);
 }
 viewHighscore();
